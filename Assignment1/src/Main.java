@@ -23,7 +23,7 @@ public class Main {
             if (userPin != defaultPin && attemptCount > 0) {
                 System.out.println("You've entered incorrect password");
                 System.out.println("You've " + attemptCount + " Remaining attempts");
-                attemptCount--;
+                --attemptCount;
             } else if (userPin != defaultPin && attemptCount == 0) {
 
                 System.out.println("Your account has been locked");
@@ -45,9 +45,14 @@ public class Main {
 
         do {
 
-            System.out.println("========= ATM =========\n" + "1. Check Balance\n" + "2. Deposit\n" + "3. Withdraw\n" + "4. Show Account Status\n" + "5. Exit\n" + "=======================");
-
-
+            System.out.println("""
+                    ========= ATM =========
+                    1. Check Balance
+                    2. Deposit
+                    3. Withdraw
+                    4. Show Account Status
+                    5. Exit
+                    =======================""");
             choice = input.nextInt();
 
             switch (choice) {
@@ -126,7 +131,7 @@ public class Main {
                     if (balance >= 5000) {
 
                         System.out.println("VIP Customer ");
-                    } else if (balance > 1000 && balance < 5000) {
+                    } else if (balance >= 1000) {
                         System.out.println("Regular Customer");
                     } else {
                         System.out.println("Low balance");
