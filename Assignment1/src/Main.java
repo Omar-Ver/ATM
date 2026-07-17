@@ -23,7 +23,7 @@ public class Main {
             if (userPin != defaultPin && attemptCount > 0) {
                 System.out.println("You've entered incorrect password");
                 System.out.println("You've " + attemptCount + " Remaining attempts");
-                --attemptCount;
+                attemptCount--;
             } else if (userPin != defaultPin && attemptCount == 0) {
 
                 System.out.println("Your account has been locked");
