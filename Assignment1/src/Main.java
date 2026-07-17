@@ -14,14 +14,15 @@ public class Main {
         double withdrawlAmount;
         int attemptCount = 3;
 
+
         do {
 
             System.out.println("Please enter your PIN Number");
             userPin = input.nextInt();
 
-            if (userPin != defaultPin && attemptCount >0) {
+            if (userPin != defaultPin && attemptCount > 0) {
                 System.out.println("You've entered incorrect password");
-                System.out.println("You've "+ attemptCount + " Remaining attempts");
+                System.out.println("You've " + attemptCount + " Remaining attempts");
                 attemptCount--;
             } else if (userPin != defaultPin && attemptCount == 0) {
 
@@ -55,7 +56,7 @@ public class Main {
 
                 case 1 -> System.out.println("Your current balance is " + balance);
 
-//                Deposite CASE
+//                Deposit CASE
                 case 2 -> {
                     do {
                         System.out.println("Please enter the amount you'd like to deposit");
@@ -69,11 +70,18 @@ public class Main {
 
 
                         }
+                        do {
 
-                        System.out.println("Would you like to make another deposit?\n1-Yes\n2-No");
-                        choice = input.nextInt();
+                            System.out.println("Would you like to make another deposit?\n1-Yes\n2-No");
+                            choice = input.nextInt();
 
-                    } while (choice != 2);
+                            if (choice != 1 && choice != 2) {
+                                System.out.println("invaild choice, please select from the following.");
+                            }
+
+                        } while (choice != 1 && choice != 2);
+
+                    } while (choice == 1);
 
 
                 }
@@ -82,7 +90,7 @@ public class Main {
                     do {
                         System.out.println("Please enter the amount you'd like to withdraw");
                         withdrawlAmount = input.nextDouble();
-                        if ( withdrawlAmount == 0) {
+                        if (withdrawlAmount == 0) {
                             System.out.println("Transaction cancelled");
                             return;
                         } else if (withdrawlAmount == balance) {
@@ -98,10 +106,18 @@ public class Main {
                             System.out.println("Insufficient balance");
                         }
 
-                        System.out.println("Would you like to make another withdrawl?\n1-Yes\n2-No");
-                        choice = input.nextInt();
+                        do {
 
-                    } while (choice != 2);
+                            System.out.println("Would you like to make another withdrawl?\n1-Yes\n2-No");
+                            choice = input.nextInt();
+
+                            if (choice != 1 && choice != 2) {
+                                System.out.println("invaild choice, please select from the following.");
+                            }
+
+                        } while (choice != 1 && choice != 2);
+
+                    } while (choice == 1);
 
                 }
 //                Status CASE
