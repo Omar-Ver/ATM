@@ -137,21 +137,15 @@ public class Main {
                 case 1 -> System.out.println("Your current balance is " + balance);
 
 //                Deposit CASE
-                case 2 -> {
+                case 2 ->  balance = depositMethod(balance, input);
 
-                    balance = depositMethod(balance, input);
 
-                }
 //                Withdraw CASE
-                case 3 -> {
+                case 3 -> balance = withdrawMethod(balance, input);
 
-                    balance = withdrawMethod(balance, input);
-                }
 //                Status CASE
-                case 4 -> {
+                case 4 -> showAccountStatus(balance);
 
-                    showAccountStatus(balance);
-                }
 //                EXIT CASE
                 case 5 -> System.out.println("Thank you for using our ATM");
 
