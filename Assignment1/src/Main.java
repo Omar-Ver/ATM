@@ -2,18 +2,14 @@ import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+
 public class Main {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static boolean enterPin(Scanner input) {
 
         int defaultPin = 1234;
         int userPin;
-        double balance = 2500.75;
-        int choice;
-        double depositAmount;
-        double withdrawlAmount;
-        int attemptCount = 3;
-
+        int attemptCount = 2;
 
         do {
 
@@ -27,20 +23,99 @@ public class Main {
             } else if (userPin != defaultPin && attemptCount == 0) {
 
                 System.out.println("Your account has been locked");
-                return;
+                return false;
             } else {
 
                 System.out.println("You've logged in successfully");
+
             }
 
 
         } while (userPin != defaultPin);
+        return true;
+    }
 
+
+    public static void displayMessage(double balance) {
 
         System.out.println("Your current balance is " + balance);
 
 
         System.out.println("Please choose from the following options");
+
+    }
+
+    public static double depositMethod(double balance, Scanner input) {
+        double depositAmount;
+
+        System.out.println("Please enter the amount you'd like to deposit");
+
+        depositAmount = input.nextDouble();
+
+        if (depositAmount <= 0) {
+            System.out.println("Invalid Amount");
+
+        } else {
+            balance += depositAmount;
+            System.out.println("Your current balance is " + balance);
+
+        }
+
+
+        return balance;
+    }
+
+    public static double withdrawMethod(double balance, Scanner input) {
+
+        double withdrawlAmount;
+
+        System.out.println("Please enter the amount you'd like to withdraw");
+        withdrawlAmount = input.nextDouble();
+        if (withdrawlAmount == 0) {
+            System.out.println("Transaction cancelled");
+            System.exit(0);
+        } else if (withdrawlAmount == balance) {
+            balance -= withdrawlAmount;
+            System.out.println("Your account is empty");
+        } else if (withdrawlAmount < balance) {
+
+
+            balance -= withdrawlAmount;
+            System.out.println("Your current balance is " + balance);
+
+        } else {
+            System.out.println("Insufficient balance");
+        }
+
+        return balance;
+    }
+
+    public static void showAccountStatus(double balance) {
+
+        if (balance >= 5000) {
+
+            System.out.println("VIP Customer ");
+        } else if (balance >= 1000) {
+            System.out.println("Regular Customer");
+        } else {
+            System.out.println("Low balance");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        double balance = 2500.75;
+        int choice;
+
+
+        if (enterPin(input)) {
+
+            displayMessage(balance);
+        } else {
+            return;
+        }
 
 
         do {
@@ -63,79 +138,19 @@ public class Main {
 
 //                Deposit CASE
                 case 2 -> {
-                    do {
-                        System.out.println("Please enter the amount you'd like to deposit");
-                        depositAmount = input.nextInt();
-                        if (depositAmount <= 0) {
-                            System.out.println("Invalid Amount");
-                        } else {
 
-                            balance += depositAmount;
-                            System.out.println("Your current balance is " + balance);
-
-
-                        }
-                        do {
-
-                            System.out.println("Would you like to make another deposit?\n1-Yes\n2-No");
-                            choice = input.nextInt();
-
-                            if (choice != 1 && choice != 2) {
-                                System.out.println("invaild choice, please select from the following.");
-                            }
-
-                        } while (choice != 1 && choice != 2);
-
-                    } while (choice == 1);
-
+                    balance = depositMethod(balance, input);
 
                 }
 //                Withdraw CASE
                 case 3 -> {
-                    do {
-                        System.out.println("Please enter the amount you'd like to withdraw");
-                        withdrawlAmount = input.nextDouble();
-                        if (withdrawlAmount == 0) {
-                            System.out.println("Transaction cancelled");
-                            return;
-                        } else if (withdrawlAmount == balance) {
 
-                            System.out.println("Your account is empty");
-                        } else if (withdrawlAmount < balance) {
-
-
-                            balance -= withdrawlAmount;
-                            System.out.println("Your current balance is " + balance);
-
-                        } else {
-                            System.out.println("Insufficient balance");
-                        }
-
-                        do {
-
-                            System.out.println("Would you like to make another withdrawl?\n1-Yes\n2-No");
-                            choice = input.nextInt();
-
-                            if (choice != 1 && choice != 2) {
-                                System.out.println("invaild choice, please select from the following.");
-                            }
-
-                        } while (choice != 1 && choice != 2);
-
-                    } while (choice == 1);
-
+                    balance = withdrawMethod(balance, input);
                 }
 //                Status CASE
                 case 4 -> {
 
-                    if (balance >= 5000) {
-
-                        System.out.println("VIP Customer ");
-                    } else if (balance >= 1000) {
-                        System.out.println("Regular Customer");
-                    } else {
-                        System.out.println("Low balance");
-                    }
+                    showAccountStatus(balance);
                 }
 //                EXIT CASE
                 case 5 -> System.out.println("Thank you for using our ATM");
@@ -145,6 +160,6 @@ public class Main {
 
         } while (choice != 5);
 
-
+            input.close();
     }
 }
